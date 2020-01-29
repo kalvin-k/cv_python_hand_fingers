@@ -2,13 +2,14 @@ import cv2
 import numpy as np
 
 background = None
-
 accumulated_weight = 0.5
 
 roi_top = 20
 roi_bottom = 300
 roi_right = 300
 roi_left = 600
+
+<---------------------------------------------------------------------------------------->
 
 def calc_accum_avg(frame,accumulated_weight):
     
@@ -20,7 +21,8 @@ def calc_accum_avg(frame,accumulated_weight):
     
     cv2.accumulateWeighted(frame,background,accumulated_weight)
     
-    
+<---------------------------------------------------------------------------------------->
+
 def segment(frame,threshold_min=25):
     
     diff = cv2.absdiff(background.astype('uint8'),frame)
@@ -37,6 +39,8 @@ def segment(frame,threshold_min=25):
         
         return (thresholded,hand_segment)
     
+<---------------------------------------------------------------------------------------->    
+
 def count_fingers(thresholded,hand_segment):
     
     conv_hull =cv2.convexHull(hand_segment)
@@ -81,6 +85,7 @@ def count_fingers(thresholded,hand_segment):
             
     return count
 
+<---------------------------------------------------------------------------------------->
 
 cam = cv2.VideoCapture(0)
 
@@ -130,6 +135,8 @@ while True:
     if k == 27:
         break
         
+<---------------------------------------------------------------------------------------->
+
 cam.release()
 cv2.destroyAllWindows()
     
