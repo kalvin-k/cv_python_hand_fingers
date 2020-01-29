@@ -33,7 +33,6 @@ def segment(frame,threshold_min=25):
         return None
     
     else:
-        # ASSUMING THE LARGEST EXTERNAL CONTOUR IN ROI, IS THE HAND
         hand_segment = max(contours,key=cv2.contourArea)
         
         return (thresholded,hand_segment)
@@ -112,8 +111,6 @@ while True:
         if hand is not None:
             
             thresholded , hand_segment = hand
-            
-            # DRAWS CONTOURS AROUND REAL HAND IN LIVE STREAM
             cv2.drawContours(frame_copy,[hand_segment+(roi_right,roi_top)],-1,(255,0,0),5)
             
             fingers = count_fingers(thresholded,hand_segment)
